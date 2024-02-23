@@ -168,6 +168,8 @@ extension LoggerViewController: MFMailComposeViewControllerDelegate {
                 self.showAlert(withTitle: "Cancel", message: "Send email canceled")
                 break
             case .sent:
+                // 发送成功后删除日志
+                delegate?.removeAll()
                 break
             case .failed:
                 self.showAlert(withTitle: "Failed", message: "Send email failed")
