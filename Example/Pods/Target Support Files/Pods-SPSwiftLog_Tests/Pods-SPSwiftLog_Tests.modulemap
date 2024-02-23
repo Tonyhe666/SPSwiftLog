@@ -1,0 +1,6 @@
+framework module Pods_SPSwiftLog_Tests {
+  umbrella header "Pods-SPSwiftLog_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

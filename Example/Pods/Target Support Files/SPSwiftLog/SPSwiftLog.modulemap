@@ -1,0 +1,6 @@
+framework module SPSwiftLog {
+  umbrella header "SPSwiftLog-umbrella.h"
+
+  export *
+  module * { export * }
+}
