@@ -49,33 +49,33 @@ class LoggerViewController: UIViewController {
         return view
     }()
     
-    var btnSend: UIButton = {
+    lazy var btnSend: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = themeColor
         button.setTitleColor(.white, for: .normal)
         button.roundedCorners(cornerRadius: 5)
         button.setTitle("Send email", for: .normal)
-        button.addTarget(LoggerViewController.self, action: #selector(btnSendPressed(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(btnSendPressed(_:)), for: .touchUpInside)
         
         return button
     }()
     
-    var btnRemove: UIButton = {
+    lazy var btnRemove: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = themeColor
         button.setTitleColor(.white, for: .normal)
         button.roundedCorners(cornerRadius: 5)
         button.setTitle("Remove All", for: .normal)
-        button.addTarget(LoggerViewController.self, action: #selector(btnRemovePressed(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(btnRemovePressed(_:)), for: .touchUpInside)
         return button
     }()
-    var btnCancel: UIButton = {
+    lazy var btnCancel: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = themeColor
         button.setTitleColor(.white, for: .normal)
         button.roundedCorners(cornerRadius: 5)
         button.setTitle("Cancel", for: .normal)
-        button.addTarget(LoggerViewController.self, action: #selector(btnCancelPressed(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(btnCancelPressed(_:)), for: .touchUpInside)
         return button
     }()
     
