@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SPSwiftLog'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'SPSwiftLog is a light log framework'
 
 # This description is used to generate tags and improve search results.
