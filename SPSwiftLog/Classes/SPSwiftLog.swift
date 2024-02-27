@@ -60,7 +60,7 @@ public class Logger: NSObject {
         set { isolationQueue.async(flags: .barrier) { self._data = newValue } }        
     }
     
-    private var logUrl: URL? {
+    var logUrl: URL? {
         let fileName = "SwiftyLog"
         try? FileManager.default.createDirectory(at: logSubdiretory, withIntermediateDirectories: false)
         let url = logSubdiretory.appendingPathComponent(fileName).appendingPathExtension(fileExtension)

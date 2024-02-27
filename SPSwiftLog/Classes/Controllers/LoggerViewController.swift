@@ -21,7 +21,7 @@ class LoggerViewController: UIViewController {
         }
     }
 
-    var webView: WKWebView = {
+    lazy var webView: WKWebView = {
         
         let source: String = "var meta = document.createElement('meta');" +
             "meta.name = 'viewport';" +
@@ -47,6 +47,17 @@ class LoggerViewController: UIViewController {
         view.isEditable = false
         view.backgroundColor = UIColor.lightGray
         return view
+    }()
+    
+    lazy var btnShare: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = themeColor
+        button.setTitleColor(.white, for: .normal)
+        button.roundedCorners(cornerRadius: 5)
+        button.setTitle("Share log", for: .normal)
+        button.addTarget(self, action: #selector(btnSharePressed(_:)), for: .touchUpInside)
+        
+        return button
     }()
     
     lazy var btnSend: UIButton = {
@@ -91,18 +102,19 @@ class LoggerViewController: UIViewController {
     private func addSubViews() {
         self.view.backgroundColor = UIColor.white
         
-        [webView, btnSend, btnRemove, btnCancel].forEach { (subView: UIView) in
+        [webView, btnShare, btnSend, btnRemove, btnCancel].forEach { (subView: UIView) in
             subView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(subView)
         }
         
-        let views: [String:UIView] = ["webView": webView, "btnSend": btnSend, "btnRemove": btnRemove, "btnCancel": btnCancel]
+        let views: [String:UIView] = ["webView": webView, "btnShare": btnShare, "btnSend": btnSend, "btnRemove": btnRemove, "btnCancel": btnCancel]
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[webView]|", options: [], metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(16)-[btnShare]-(16)-|", options: [], metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(16)-[btnSend]-(16)-|", options: [], metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(16)-[btnRemove]-(16)-|", options: [], metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(16)-[btnCancel]-(16)-|", options: [], metrics: nil, views: views))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(20)-[webView]-[btnSend(==32)]-[btnRemove(==32)]-[btnCancel(==32)]-(8)-|", options: [], metrics: nil, views: views))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(20)-[webView]-[btnShare(==32)]-[btnSend(==32)]-[btnRemove(==32)]-[btnCancel(==32)]-(8)-|", options: [], metrics: nil, views: views))
     }
     
     @objc func btnCancelPressed(_ button: UIButton) {
@@ -113,8 +125,27 @@ class LoggerViewController: UIViewController {
         sendEmail()
     }
     
+    @objc func btnSharePressed(_ button: UIButton) {
+        shareLog()
+    }
+    
     @objc func btnRemovePressed(_ button: UIButton) {
         delegate?.removeAll()
+    }
+    
+    // 日志分享
+    private func shareLog() {
+        guard let url = Logger.shared.logUrl else {
+            return
+        }
+        UIApplication.shareWithSys(items: [url], complete: { [weak self] ok in
+            guard let self = self else {
+                return
+            }
+            if ok {
+                self.delegate?.removeAll()
+            }
+        })
     }
     
     private func sendEmail() {

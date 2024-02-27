@@ -123,4 +123,27 @@ public extension UIApplication {
         }
         return controller
     }
+    
+    class func shareWithSys(items: [Any], complete: @escaping (Bool) -> Void) {
+        let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        vc.completionWithItemsHandler = { activityType, completed, returnedItems, activityError in
+            if completed {
+                complete(true)
+            } else {
+                complete(false)
+            }
+        }
+        
+        guard let topVC = UIApplication.topViewController() else {
+            return
+        }
+        
+        if Constants.ipad {
+            vc.popoverPresentationController?.sourceView = topVC.view
+            vc.popoverPresentationController?.sourceRect = CGRect(x: Constants.width/2.0, y: Constants.height, width: 0, height: 0)
+            topVC.present(vc, animated: true, completion: nil)
+        } else {
+            topVC.present(vc, animated: true, completion: nil)
+        }
+    }
 }

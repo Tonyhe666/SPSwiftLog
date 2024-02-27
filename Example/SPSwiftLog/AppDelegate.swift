@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         Logger.shared.level = .debug
-        Logger.shared.output = .debuggerConsole
+        Logger.shared.output = .deviceConsoleAndFile
         Logger.shared.dwd("didFinishLaunchingWithOptions")
         Logger.shared.d("didFinishLaunchingWithOptions")
         Logger.shared.dw("didFinishLaunchingWithOptions")
