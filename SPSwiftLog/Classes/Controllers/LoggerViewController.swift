@@ -144,6 +144,7 @@ class LoggerViewController: UIViewController {
             }
             if ok {
                 self.delegate?.removeAll()
+                self.dismiss(animated: true, completion: nil)
             }
         })
     }
